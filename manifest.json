@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "X Reply Filter",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Hides replies on X from unverified accounts, unless you're mutuals.",
   "permissions": ["storage"],
   "action": {

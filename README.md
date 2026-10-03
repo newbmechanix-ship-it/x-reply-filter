@@ -7,6 +7,7 @@ A Chrome extension for x.com that hides replies from **unverified accounts**, un
 - Filters replies under any post you open (`x.com/<user>/status/<id>`) and on **Notifications** / **Mentions**.
 - An account is shown if it has any verified checkmark (blue, gold or grey) or is a mutual.
 - Your own replies are always shown. The original poster's replies are shown by default; you can turn that off.
+- "Added you to a list" notifications are hidden too (can be turned off).
 - Hidden replies collapse to a one-line placeholder you can click to reveal, or can be removed completely.
 - Parent posts above the one you opened and the "Discover more" section are left alone.
 

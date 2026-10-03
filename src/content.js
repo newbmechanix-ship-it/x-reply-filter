@@ -2,7 +2,8 @@
 // conversation pages (x.com/<user>/status/<id>) and applies/removes the hiding.
 (() => {
   const SOURCE = 'x-reply-filter';
-  const DEFAULTS = { enabled: true, showOP: true, mode: 'collapse' };
+  const DEFAULTS = { enabled: true, showOP: true, mode: 'collapse', hideListAdds: true };
+  const LIST_ADD_RE = /added you to (their|a|the) list/i;
 
   let settings = { ...DEFAULTS };
   const known = new Map();        // handle -> { verified, mutual, relKnown }
@@ -168,6 +169,23 @@
     const isStatus = ctx.kind === 'status';
     const focal = isStatus ? findFocal(articles, ctx.id) : null;
     const boundary = isStatus ? findSectionBoundary(focal) : null;
+
+    // "X added you to their List" notifications aren't tweets; hide them outright.
+    if (ctx.kind === 'notifications') {
+      for (const cell of document.querySelectorAll('[data-testid="cellInnerDiv"]')) {
+        if (cell.querySelector('article')) continue;
+        const isListAdd = LIST_ADD_RE.test(cell.textContent || '');
+        if (isListAdd && settings.hideListAdds) {
+          if (!cell.hasAttribute('data-xrf-hidden')) {
+            cell.setAttribute('data-xrf-hidden', '');
+            cell.setAttribute('data-xrf-key', 'list:' + (cell.textContent || '').slice(0, 80));
+            cell.setAttribute('data-xrf-label', 'List notification hidden · click to show');
+          }
+        } else if (cell.getAttribute('data-xrf-key')?.startsWith('list:')) {
+          unhide(cell);
+        }
+      }
+    }
 
     for (const article of articles) {
       const cell = article.closest('[data-testid="cellInnerDiv"]');

@@ -1,4 +1,4 @@
-const DEFAULTS = { enabled: true, showOP: true, mode: 'collapse' };
+const DEFAULTS = { enabled: true, showOP: true, mode: 'collapse', hideListAdds: true };
 
 const $ = (id) => document.getElementById(id);
 
@@ -6,7 +6,10 @@ chrome.storage.sync.get(DEFAULTS, (s) => {
   $('enabled').checked = s.enabled;
   $('showOP').checked = s.showOP;
   $('mode').value = s.mode;
+  $('hideListAdds').checked = s.hideListAdds;
 });
+
+$('hideListAdds').addEventListener('change', (e) => chrome.storage.sync.set({ hideListAdds: e.target.checked }));
 
 $('enabled').addEventListener('change', (e) => chrome.storage.sync.set({ enabled: e.target.checked }));
 $('showOP').addEventListener('change', (e) => chrome.storage.sync.set({ showOP: e.target.checked }));
