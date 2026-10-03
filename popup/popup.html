@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <h1>X Reply Filter</h1>
+  <p class="sub">Hides replies from unverified accounts unless you're mutuals.</p>
+
+  <label class="row">
+    <span>Enabled</span>
+    <input type="checkbox" id="enabled">
+  </label>
+
+  <label class="row">
+    <span>Always show the original poster's replies</span>
+    <input type="checkbox" id="showOP">
+  </label>
+
+  <label class="row">
+    <span>Hidden replies</span>
+    <select id="mode">
+      <option value="collapse">Collapse (click to show)</option>
+      <option value="remove">Remove completely</option>
+    </select>
+  </label>
+
+  <div id="stats" class="stats">Open a post or Notifications on x.com to see stats.</div>
+
+  <button id="clear">Forget cached mutuals</button>
+
+  <script src="popup.js"></script>
+</body>
+</html>
