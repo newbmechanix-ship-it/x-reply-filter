@@ -173,7 +173,8 @@
     // "X added you to their List" notifications aren't tweets; hide them outright.
     if (ctx.kind === 'notifications') {
       for (const cell of document.querySelectorAll('[data-testid="cellInnerDiv"]')) {
-        if (cell.querySelector('article')) continue;
+        if (cell.querySelector('article[data-testid="tweet"]')) continue;
+        // These render as <article data-testid="notification">.
         const isListAdd = LIST_ADD_RE.test(cell.textContent || '');
         if (isListAdd && settings.hideListAdds) {
           if (!cell.hasAttribute('data-xrf-hidden')) {
